@@ -25,7 +25,8 @@ var Notifications = {
 	permissions: {
 		alert: true,
 		badge: true,
-		sound: true
+		sound: true,
+		critical: true,
 	}
 };
 
