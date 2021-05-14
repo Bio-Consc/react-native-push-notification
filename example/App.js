@@ -52,9 +52,23 @@ export default class App extends Component {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
+            this.notif.localNotif('sample.mp3');
+          }}>
+          <Text>Local Notification with sound (now)</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
             this.notif.scheduleNotif();
           }}>
           <Text>Schedule Notification in 30s</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            this.notif.scheduleNotif('sample.mp3');
+          }}>
+          <Text>Schedule Notification with sound in 30s</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
@@ -84,6 +98,41 @@ export default class App extends Component {
           }}>
           <Text>Request Permissions</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            this.notif.abandonPermissions();
+          }}>
+          <Text>Abandon Permissions</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            this.notif.getScheduledLocalNotifications(notifs => console.log(notifs));
+          }}>
+          <Text>Console.Log Scheduled Local Notifications</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            this.notif.getDeliveredNotifications(notifs => console.log(notifs));
+          }}>
+          <Text>Console.Log Delivered Notifications</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            this.notif.createOrUpdateChannel();
+          }}>
+          <Text>Create or update a channel</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            this.notif.popInitialNotification();
+          }}>
+          <Text>popInitialNotification</Text>
+        </TouchableOpacity>
 
         <View style={styles.spacer}></View>
 
@@ -95,13 +144,10 @@ export default class App extends Component {
   }
 
   onRegister(token) {
-    //Alert.alert('Registered !', JSON.stringify(token));
-    console.log(token);
     this.setState({registerToken: token.token, fcmRegistered: true});
   }
 
   onNotif(notif) {
-    console.log('onNotification', notif);
     Alert.alert(notif.title, notif.message);
   }
 
